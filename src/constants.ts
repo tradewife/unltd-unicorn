@@ -11,7 +11,7 @@ export const DEFAULT_VALUES = {
   scale: 1 as ScaleRange, // 0.25 to 1.0
   production: true,
   dpi: 1.5,
-  fps: 30 as ValidFPS, // 15, 24, 30, 60, or 120
+  fps: 60 as ValidFPS, // 15, 24, 30, 60, or 120
   altText: "Scene",
   className: "",
   lazyLoad: true,
