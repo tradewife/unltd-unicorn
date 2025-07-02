@@ -1,6 +1,6 @@
 {
   "name": "unicornstudio-next",
-  "version": "1.4.26-1",
+  "version": "1.4.2-6.1",
   "description": "React/Next.js component for embedding Unicorn.Studio interactive scenes with TypeScript support",
   "keywords": [
     "react",
