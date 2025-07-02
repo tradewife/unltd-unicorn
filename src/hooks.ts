@@ -74,7 +74,7 @@ export function useUnicornScene({
       const sceneConfig: UnicornSceneConfig = {
         elementId:
           elementRef.current.id ||
-          `unicorn-${Math.random().toString(36).substr(2, 9)}`,
+          `unicorn-${Math.random().toString(36).slice(2, 11)}`,
         scale,
         dpi,
         fps,

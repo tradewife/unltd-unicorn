@@ -67,7 +67,7 @@ export default function UnicornScene({
 
   // Determine if placeholder should be shown
   const showPlaceholder =
-    placeholder &&
+    (placeholder || placeholderClassName) &&
     (!webGLSupported ||
       (showPlaceholderWhileLoading && !isSceneLoaded) ||
       (showPlaceholderOnError && error));
@@ -98,7 +98,7 @@ export default function UnicornScene({
         style={{ ...unicornStyles.container, ...customProperties }}
         className={className}
       >
-        {showPlaceholder && placeholder && (
+        {showPlaceholder && (placeholder || placeholderClassName) && (
           <div style={{ position: "absolute", inset: 0 }}>
             {typeof placeholder === "string" ? (
               useNumericDimensions ? (
@@ -119,15 +119,15 @@ export default function UnicornScene({
                   priority
                 />
               )
+            ) : placeholder ? (
+              placeholder
             ) : placeholderClassName ? (
               <div
                 className={placeholderClassName}
                 style={{ width: "100%", height: "100%" }}
                 aria-label={altText}
               />
-            ) : (
-              placeholder
-            )}
+            ) : null}
           </div>
         )}
         {error && !showPlaceholder && (

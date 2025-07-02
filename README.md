@@ -120,7 +120,6 @@ The component now supports flexible placeholder options that can be displayed wh
 ```tsx
 <UnicornScene
   projectId="YOUR_PROJECT_ID"
-  placeholder="placeholder"
   placeholderClassName="bg-gradient-to-r from-blue-500 to-purple-600 animate-pulse"
   width="100%"
   height="400px"
@@ -153,26 +152,26 @@ The component now supports flexible placeholder options that can be displayed wh
 
 ## Props
 
-| Prop           | Type                     | Default   | Description                                                                |
-| -------------- | ------------------------ | --------- | -------------------------------------------------------------------------- |
-| `projectId`    | `string`                 | -         | The Unicorn Studio project embed ID (required if not using `jsonFilePath`) |
-| `jsonFilePath` | `string`                 | -         | Path to a self-hosted JSON file (required if not using `projectId`)        |
-| `width`        | `number \| string`       | `"100%"`  | Width of the scene container                                               |
-| `height`       | `number \| string`       | `"100%"`  | Height of the scene container                                              |
-| `scale`        | `number`                 | `1`       | Rendering scale (0.25-1, lower values improve performance)                 |
-| `dpi`          | `number`                 | `1.5`     | Pixel ratio for rendering quality                                          |
-| `fps`          | `number`                 | `60`      | Frames per second (0-120)                                                  |
-| `altText`      | `string`                 | `"Scene"` | Alternative text for accessibility                                         |
-| `ariaLabel`    | `string`                 | -         | ARIA label for the scene                                                   |
-| `className`    | `string`                 | `""`      | Additional CSS classes                                                     |
-| `lazyLoad`     | `boolean`                | `true`    | Load scene only when scrolled into view                                    |
-| `production`   | `boolean`                | `true`    | Use production CDN                                                         |
-| `placeholder`  | `string \| ReactNode`    | -         | Placeholder content (image URL or React component)                         |
-| `placeholderClassName` | `string`        | -         | CSS classes for placeholder div (when using CSS placeholder)               |
-| `showPlaceholderOnError` | `boolean`   | `true`    | Show placeholder when scene fails to load                                  |
-| `showPlaceholderWhileLoading` | `boolean` | `true` | Show placeholder while scene is loading                                    |
-| `onLoad`       | `() => void`             | -         | Callback when scene loads successfully                                     |
-| `onError`      | `(error: Error) => void` | -         | Callback when scene fails to load                                          |
+| Prop                          | Type                     | Default   | Description                                                                |
+| ----------------------------- | ------------------------ | --------- | -------------------------------------------------------------------------- |
+| `projectId`                   | `string`                 | -         | The Unicorn Studio project embed ID (required if not using `jsonFilePath`) |
+| `jsonFilePath`                | `string`                 | -         | Path to a self-hosted JSON file (required if not using `projectId`)        |
+| `width`                       | `number \| string`       | `"100%"`  | Width of the scene container                                               |
+| `height`                      | `number \| string`       | `"100%"`  | Height of the scene container                                              |
+| `scale`                       | `number`                 | `1`       | Rendering scale (0.25-1, lower values improve performance)                 |
+| `dpi`                         | `number`                 | `1.5`     | Pixel ratio for rendering quality                                          |
+| `fps`                         | `number`                 | `60`      | Frames per second (0-120)                                                  |
+| `altText`                     | `string`                 | `"Scene"` | Alternative text for accessibility                                         |
+| `ariaLabel`                   | `string`                 | -         | ARIA label for the scene                                                   |
+| `className`                   | `string`                 | `""`      | Additional CSS classes                                                     |
+| `lazyLoad`                    | `boolean`                | `true`    | Load scene only when scrolled into view                                    |
+| `production`                  | `boolean`                | `true`    | Use production CDN                                                         |
+| `placeholder`                 | `string \| ReactNode`    | -         | Placeholder content (image URL or React component)                         |
+| `placeholderClassName`        | `string`                 | -         | CSS classes for placeholder div (when using CSS placeholder)               |
+| `showPlaceholderOnError`      | `boolean`                | `true`    | Show placeholder when scene fails to load                                  |
+| `showPlaceholderWhileLoading` | `boolean`                | `true`    | Show placeholder while scene is loading                                    |
+| `onLoad`                      | `() => void`             | -         | Callback when scene loads successfully                                     |
+| `onError`                     | `(error: Error) => void` | -         | Callback when scene fails to load                                          |
 
 ## Styling
 
