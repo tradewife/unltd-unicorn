@@ -1,3 +1,7 @@
+export type ValidFPS = 15 | 24 | 30 | 60 | 120;
+
+export type ScaleRange = number;
+
 // UnicornScene component types
 export interface UnicornSceneProps {
   projectId?: string;
@@ -5,9 +9,9 @@ export interface UnicornSceneProps {
   altText?: string;
   width?: number | string;
   height?: number | string;
-  scale?: number;
+  scale?: ScaleRange;
   dpi?: number;
-  fps?: number;
+  fps?: ValidFPS;
   ariaLabel?: string;
   className?: string;
   lazyLoad?: boolean;
@@ -30,9 +34,9 @@ export interface UnicornStudioScene {
 
 export interface UnicornSceneConfig {
   elementId: string;
-  scale?: number;
+  scale?: ScaleRange;
   dpi?: number;
-  fps?: number;
+  fps?: ValidFPS;
   projectId?: string;
   filePath?: string;
   lazyLoad?: boolean;
@@ -49,7 +53,7 @@ export interface UnicornSceneConfig {
 
 export interface UnicornStudioAPI {
   init: (config: {
-    scale: number;
+    scale: ScaleRange;
     dpi: number;
   }) => Promise<UnicornStudioScene[]>;
   addScene: (config: UnicornSceneConfig) => Promise<UnicornStudioScene>;
@@ -57,9 +61,9 @@ export interface UnicornStudioAPI {
 }
 
 export interface UnicornStudioConfig {
-  scale: number;
+  scale: ScaleRange;
   dpi: number;
-  fps: number;
+  fps: ValidFPS;
 }
 
 // Global type augmentation
