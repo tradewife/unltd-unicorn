@@ -1,3 +1,4 @@
+import { VALID_FPS } from "./constants";
 import type { ScaleRange, ValidFPS } from "./types";
 
 export function isWebGLSupported(): boolean {
@@ -14,7 +15,7 @@ export function isWebGLSupported(): boolean {
 }
 
 export function validateFPS(fps: number): fps is ValidFPS {
-  return [15, 24, 30, 60, 120].includes(fps);
+  return VALID_FPS.includes(fps as ValidFPS);
 }
 
 export function validateScale(scale: number): scale is ScaleRange {

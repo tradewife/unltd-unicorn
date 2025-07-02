@@ -18,3 +18,5 @@ export const DEFAULT_VALUES = {
   showPlaceholderOnError: true,
   showPlaceholderWhileLoading: true,
 } as const;
+
+export const VALID_FPS = [15, 24, 30, 60, 120] as const;
