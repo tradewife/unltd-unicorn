@@ -1,5 +1,11 @@
 import { useEffect, useRef, useState, useCallback } from "react";
-import type { UnicornStudioScene, UnicornSceneConfig } from "./types";
+import type {
+  UnicornStudioScene,
+  UnicornSceneConfig,
+  ValidFPS,
+  ScaleRange,
+} from "./types";
+import { validateParameters } from "./utils";
 
 // Custom hook for script loading
 export function useUnicornStudioScript() {
@@ -23,9 +29,9 @@ interface UseUnicornSceneParams {
   projectId?: string;
   jsonFilePath?: string;
   production?: boolean;
-  scale: number;
+  scale: ScaleRange;
   dpi: number;
-  fps: number;
+  fps: ValidFPS;
   lazyLoad: boolean;
   altText: string;
   ariaLabel: string;
@@ -63,6 +69,14 @@ export function useUnicornScene({
 
   const initializeScene = useCallback(async () => {
     if (!elementRef.current || !isScriptLoaded) return;
+
+    const validationError = validateParameters(scale, fps);
+    if (validationError) {
+      const error = new Error(validationError);
+      setInitError(error);
+      onError?.(error);
+      return;
+    }
 
     // Create a unique key for this configuration
     const currentKey = `${projectId || ""}-${jsonFilePath || ""}-${scale}-${dpi}-${fps}-${production ? "prod" : "dev"}`;
