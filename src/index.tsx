@@ -1,11 +1,13 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import Script from "next/script";
+import Image from "next/image";
 import type { UnicornSceneProps } from "./types";
 import { useUnicornStudioScript, useUnicornScene } from "./hooks";
 import { UNICORN_STUDIO_CDN_URL, DEFAULT_VALUES } from "./constants";
 import { unicornStyles } from "./styles";
+import { isWebGLSupported } from "./utils";
 
 export default function UnicornScene({
   projectId,
@@ -20,10 +22,17 @@ export default function UnicornScene({
   className = DEFAULT_VALUES.className,
   lazyLoad = DEFAULT_VALUES.lazyLoad,
   production = DEFAULT_VALUES.production,
+  placeholder,
+  placeholderClassName,
+  showPlaceholderOnError = DEFAULT_VALUES.showPlaceholderOnError,
+  showPlaceholderWhileLoading = DEFAULT_VALUES.showPlaceholderWhileLoading,
   onLoad,
   onError,
 }: UnicornSceneProps) {
   const elementRef = useRef<HTMLDivElement>(null);
+  const [isSceneLoaded, setIsSceneLoaded] = useState(false);
+  const [webGLSupported, setWebGLSupported] = useState(true);
+
   const {
     isLoaded,
     error: scriptError,
@@ -42,11 +51,32 @@ export default function UnicornScene({
     altText,
     ariaLabel: ariaLabel || altText,
     isScriptLoaded: isLoaded,
-    onLoad,
+    onLoad: () => {
+      setIsSceneLoaded(true);
+      onLoad?.();
+    },
     onError,
   });
 
   const error = scriptError || sceneError;
+
+  // Check WebGL support on mount
+  useEffect(() => {
+    setWebGLSupported(isWebGLSupported());
+  }, []);
+
+  // Determine if placeholder should be shown
+  const showPlaceholder =
+    placeholder &&
+    (!webGLSupported ||
+      (showPlaceholderWhileLoading && !isSceneLoaded) ||
+      (showPlaceholderOnError && error));
+
+  // Calculate dimensions for both container and image
+  const numericWidth = typeof width === "number" ? width : 0;
+  const numericHeight = typeof height === "number" ? height : 0;
+  const useNumericDimensions =
+    typeof width === "number" && typeof height === "number";
 
   // Build CSS custom properties for dynamic dimensions
   const customProperties = {
@@ -68,7 +98,39 @@ export default function UnicornScene({
         style={{ ...unicornStyles.container, ...customProperties }}
         className={className}
       >
-        {error && (
+        {showPlaceholder && placeholder && (
+          <div style={{ position: "absolute", inset: 0 }}>
+            {typeof placeholder === "string" ? (
+              useNumericDimensions ? (
+                <Image
+                  src={placeholder}
+                  alt={altText}
+                  width={numericWidth}
+                  height={numericHeight}
+                  style={{ objectFit: "cover" }}
+                  priority
+                />
+              ) : (
+                <Image
+                  src={placeholder}
+                  alt={altText}
+                  fill
+                  style={{ objectFit: "cover" }}
+                  priority
+                />
+              )
+            ) : placeholderClassName ? (
+              <div
+                className={placeholderClassName}
+                style={{ width: "100%", height: "100%" }}
+                aria-label={altText}
+              />
+            ) : (
+              placeholder
+            )}
+          </div>
+        )}
+        {error && !showPlaceholder && (
           <div style={unicornStyles.errorWrapper}>
             <div style={unicornStyles.errorBox}>
               <p style={unicornStyles.errorTitle}>Error loading scene</p>
