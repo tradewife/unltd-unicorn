@@ -100,24 +100,78 @@ export default function MyComponent() {
 }
 ```
 
+## Placeholder Support
+
+The component now supports flexible placeholder options that can be displayed while loading, on error, or when WebGL is not supported.
+
+### Image Placeholder
+
+```tsx
+<UnicornScene
+  projectId="YOUR_PROJECT_ID"
+  placeholder="/path/to/placeholder.jpg"
+  width={800}
+  height={600}
+/>
+```
+
+### CSS/Tailwind Placeholder
+
+```tsx
+<UnicornScene
+  projectId="YOUR_PROJECT_ID"
+  placeholderClassName="bg-gradient-to-r from-blue-500 to-purple-600 animate-pulse"
+  width="100%"
+  height="400px"
+/>
+```
+
+### Custom React Component Placeholder
+
+```tsx
+<UnicornScene
+  projectId="YOUR_PROJECT_ID"
+  placeholder={
+    <div className="flex items-center justify-center h-full bg-gray-100">
+      <div className="text-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 mx-auto"></div>
+        <p className="mt-4 text-gray-600">Loading 3D Scene...</p>
+      </div>
+    </div>
+  }
+  width={600}
+  height={400}
+/>
+```
+
+### Placeholder Behavior Options
+
+- `showPlaceholderWhileLoading`: Shows placeholder during scene initialization (default: `true`)
+- `showPlaceholderOnError`: Shows placeholder when scene fails to load (default: `true`)
+- The placeholder automatically shows when WebGL is not supported
+
 ## Props
 
-| Prop           | Type                     | Default   | Description                                                                |
-| -------------- | ------------------------ | --------- | -------------------------------------------------------------------------- |
-| `projectId`    | `string`                 | -         | The Unicorn Studio project embed ID (required if not using `jsonFilePath`) |
-| `jsonFilePath` | `string`                 | -         | Path to a self-hosted JSON file (required if not using `projectId`)        |
-| `width`        | `number \| string`       | `"100%"`  | Width of the scene container                                               |
-| `height`       | `number \| string`       | `"100%"`  | Height of the scene container                                              |
-| `scale`        | `number`                 | `1`       | Rendering scale (0.25-1, lower values improve performance)                 |
-| `dpi`          | `number`                 | `1.5`     | Pixel ratio for rendering quality                                          |
-| `fps`          | `number`                 | `60`      | Frames per second (0-120)                                                  |
-| `altText`      | `string`                 | `"Scene"` | Alternative text for accessibility                                         |
-| `ariaLabel`    | `string`                 | -         | ARIA label for the scene                                                   |
-| `className`    | `string`                 | `""`      | Additional CSS classes                                                     |
-| `lazyLoad`     | `boolean`                | `true`    | Load scene only when scrolled into view                                    |
-| `production`   | `boolean`                | `true`    | Use production CDN                                                         |
-| `onLoad`       | `() => void`             | -         | Callback when scene loads successfully                                     |
-| `onError`      | `(error: Error) => void` | -         | Callback when scene fails to load                                          |
+| Prop                          | Type                     | Default   | Description                                                                |
+| ----------------------------- | ------------------------ | --------- | -------------------------------------------------------------------------- |
+| `projectId`                   | `string`                 | -         | The Unicorn Studio project embed ID (required if not using `jsonFilePath`) |
+| `jsonFilePath`                | `string`                 | -         | Path to a self-hosted JSON file (required if not using `projectId`)        |
+| `width`                       | `number \| string`       | `"100%"`  | Width of the scene container                                               |
+| `height`                      | `number \| string`       | `"100%"`  | Height of the scene container                                              |
+| `scale`                       | `number`                 | `1`       | Rendering scale (0.25-1, lower values improve performance)                 |
+| `dpi`                         | `number`                 | `1.5`     | Pixel ratio for rendering quality                                          |
+| `fps`                         | `number`                 | `60`      | Frames per second (0-120)                                                  |
+| `altText`                     | `string`                 | `"Scene"` | Alternative text for accessibility                                         |
+| `ariaLabel`                   | `string`                 | -         | ARIA label for the scene                                                   |
+| `className`                   | `string`                 | `""`      | Additional CSS classes                                                     |
+| `lazyLoad`                    | `boolean`                | `true`    | Load scene only when scrolled into view                                    |
+| `production`                  | `boolean`                | `true`    | Use production CDN                                                         |
+| `placeholder`                 | `string \| ReactNode`    | -         | Placeholder content (image URL or React component)                         |
+| `placeholderClassName`        | `string`                 | -         | CSS classes for placeholder div (when using CSS placeholder)               |
+| `showPlaceholderOnError`      | `boolean`                | `true`    | Show placeholder when scene fails to load                                  |
+| `showPlaceholderWhileLoading` | `boolean`                | `true`    | Show placeholder while scene is loading                                    |
+| `onLoad`                      | `() => void`             | -         | Callback when scene loads successfully                                     |
+| `onError`                     | `(error: Error) => void` | -         | Callback when scene fails to load                                          |
 
 ## Styling
 

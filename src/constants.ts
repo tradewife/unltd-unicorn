@@ -13,4 +13,6 @@ export const DEFAULT_VALUES = {
   altText: "Scene",
   className: "",
   lazyLoad: true,
+  showPlaceholderOnError: true,
+  showPlaceholderWhileLoading: true,
 } as const;

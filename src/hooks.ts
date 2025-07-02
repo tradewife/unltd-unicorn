@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, useCallback } from "react";
-import type { UnicornStudioScene } from "./types";
+import type { UnicornStudioScene, UnicornSceneConfig } from "./types";
 
 // Custom hook for script loading
 export function useUnicornStudioScript() {
@@ -71,10 +71,10 @@ export function useUnicornScene({
       }
 
       // Prepare scene configuration
-      const sceneConfig: any = {
+      const sceneConfig: UnicornSceneConfig = {
         elementId:
           elementRef.current.id ||
-          `unicorn-${Math.random().toString(36).substr(2, 9)}`,
+          `unicorn-${Math.random().toString(36).slice(2, 11)}`,
         scale,
         dpi,
         fps,
