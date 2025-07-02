@@ -1,0 +1,79 @@
+{
+  "name": "unicornstudio-next",
+  "version": "1.4.25-rc.0",
+  "description": "React/Next.js component for embedding Unicorn.Studio interactive scenes with TypeScript support",
+  "keywords": [
+    "react",
+    "nextjs",
+    "next.js",
+    "unicorn-studio",
+    "unicornstudio",
+    "animation",
+    "webgl",
+    "canvas",
+    "interactive",
+    "3d",
+    "scenes",
+    "typescript",
+    "component",
+    "wrapper"
+  ],
+  "author": "Diego Peixoto <crazypxt@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/diegopeixoto/unicornstudio-next#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/diegopeixoto/unicornstudio-next.git"
+  },
+  "bugs": {
+    "url": "https://github.com/diegopeixoto/unicornstudio-next/issues"
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "lint": "eslint . --ext .ts,.tsx",
+    "type-check": "tsc --noEmit",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run lint && npm run type-check && npm run build"
+  },
+  "peerDependencies": {
+    "next": ">=13.0.0",
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.0.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-react": "^7.0.0",
+    "eslint-plugin-react-hooks": "^4.0.0",
+    "next": "^14.0.0",
+    "prettier": "^3.0.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
