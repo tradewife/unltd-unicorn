@@ -12,6 +12,10 @@ export interface UnicornSceneProps {
   className?: string;
   lazyLoad?: boolean;
   production?: boolean;
+  placeholder?: string | React.ReactNode;
+  placeholderClassName?: string;
+  showPlaceholderOnError?: boolean;
+  showPlaceholderWhileLoading?: boolean;
   onLoad?: () => void;
   onError?: (error: Error) => void;
 }
