@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState, useCallback, useMemo } from "react";
 import type {
   UnicornStudioScene,
   UnicornSceneConfig,
@@ -60,6 +60,27 @@ export function useUnicornScene({
   const hasAttemptedRef = useRef(false);
   const initializationKeyRef = useRef<string>("");
 
+  // Validate parameters early and memoize the result to prevent loops
+  const validationError = useMemo(() => {
+    return validateParameters(scale, fps);
+  }, [scale, fps]);
+
+  const prevValidationError = useRef<string | null>(null);
+
+  useEffect(() => {
+    if (validationError !== prevValidationError.current) {
+      prevValidationError.current = validationError;
+
+      if (validationError) {
+        const error = new Error(validationError);
+        setInitError(error);
+        onError?.(error);
+      } else {
+        setInitError(null);
+      }
+    }
+  }, [validationError, onError]);
+
   const destroyScene = useCallback(() => {
     if (sceneRef.current?.destroy) {
       sceneRef.current.destroy();
@@ -68,15 +89,7 @@ export function useUnicornScene({
   }, []);
 
   const initializeScene = useCallback(async () => {
-    if (!elementRef.current || !isScriptLoaded) return;
-
-    const validationError = validateParameters(scale, fps);
-    if (validationError) {
-      const error = new Error(validationError);
-      setInitError(error);
-      onError?.(error);
-      return;
-    }
+    if (!elementRef.current || !isScriptLoaded || validationError) return;
 
     // Create a unique key for this configuration
     const currentKey = `${projectId || ""}-${jsonFilePath || ""}-${scale}-${dpi}-${fps}-${production ? "prod" : "dev"}`;
