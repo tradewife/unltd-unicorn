@@ -1,13 +1,13 @@
-# unicornstudio-next
+# unicornstudio-react
 
-[![npm version](https://badge.fury.io/js/unicornstudio-next.svg)](https://badge.fury.io/js/unicornstudio-next)
-[![npm downloads](https://img.shields.io/npm/dm/unicornstudio-next.svg)](https://www.npmjs.com/package/unicornstudio-next)
+[![npm version](https://badge.fury.io/js/unicornstudio-react.svg)](https://badge.fury.io/js/unicornstudio-react)
+[![npm downloads](https://img.shields.io/npm/dm/unicornstudio-react.svg)](https://www.npmjs.com/package/unicornstudio-react)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg)](http://www.typescriptlang.org/)
 [![React](https://img.shields.io/badge/React-18%2B-blue.svg)](https://reactjs.org/)
 [![Next.js](https://img.shields.io/badge/Next.js-13%2B-black.svg)](https://nextjs.org/)
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/edit/unicornstudio-next-example?file=app%2Fpage.tsx)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/edit/unicornstudio-react-example?file=app%2Fpage.tsx)
 
 A React component for embedding [Unicorn.Studio](https://unicorn.studio) interactive scenes in your applications. Compatible with both React (Vite) and Next.js frameworks.
 
@@ -71,6 +71,7 @@ export default function MyComponent() {
 ### With Custom JSON File
 
 **React (Vite/CRA):**
+
 ```tsx
 import UnicornScene from "unicornstudio-react";
 
@@ -88,6 +89,7 @@ export default function MyComponent() {
 ```
 
 **Next.js:**
+
 ```tsx
 import UnicornScene from "unicornstudio-react/next";
 
@@ -238,6 +240,7 @@ The component uses inline styles for maximum compatibility. You can customize th
 ## Framework Compatibility
 
 ### React Version (Default)
+
 - ✅ **Vite** - Optimized for modern React development
 - ✅ **Create React App (CRA)** - Classic React setup
 - ✅ **Webpack** - Custom React builds
@@ -245,6 +248,7 @@ The component uses inline styles for maximum compatibility. You can customize th
 - ✅ **Rollup** - ES modules bundler
 
 ### Next.js Version (`/next`)
+
 - ✅ **Next.js 13+** - App Router and Pages Router
 - ✅ **Next.js 14+** - Latest features and optimizations
 - ✅ **Vercel deployment** - Optimized hosting
@@ -372,8 +376,8 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ### Development Setup
 
 ```bash
-git clone https://github.com/diegopeixoto/unicornstudio-next.git
-cd unicornstudio-next
+git clone https://github.com/diegopeixoto/unicornstudio-react.git
+cd unicornstudio-react
 npm install
 npm run dev
 ```
@@ -382,8 +386,8 @@ npm run dev
 
 - [Unicorn Studio](https://unicorn.studio) - Official website
 - [Unicorn Studio Documentation](https://unicorn.studio/docs) - Official docs
-- [GitHub Repository](https://github.com/diegopeixoto/unicornstudio-next) - This package
-- [npm Package](https://www.npmjs.com/package/unicornstudio-next) - npm registry
+- [GitHub Repository](https://github.com/diegopeixoto/unicornstudio-react) - This package
+- [npm Package](https://www.npmjs.com/package/unicornstudio-react) - npm registry
 
 ---
 
