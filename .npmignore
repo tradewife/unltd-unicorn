@@ -4,7 +4,7 @@ tsconfig.json
 tsup.config.ts
 .eslintrc.json
 .prettierrc
-*E.md
+*-E.md
 # Development files
 node_modules/
 .git/
