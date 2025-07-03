@@ -1,5 +1,4 @@
 "use client";
-
 import { useRef, useState, useEffect } from "react";
 import Script from "next/script";
 import Image from "next/image";
@@ -9,7 +8,7 @@ import { UNICORN_STUDIO_CDN_URL, DEFAULT_VALUES } from "./constants";
 import { unicornStyles } from "./styles";
 import { isWebGLSupported } from "./utils";
 
-export default function UnicornScene({
+function UnicornScene({
   projectId,
   jsonFilePath,
   width = DEFAULT_VALUES.width,
@@ -142,6 +141,9 @@ export default function UnicornScene({
     </>
   );
 }
+
+export default UnicornScene;
+export { UnicornScene };
 
 // Re-export types for convenience
 export type { UnicornSceneProps } from "./types";
