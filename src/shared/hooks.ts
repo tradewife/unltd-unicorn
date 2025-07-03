@@ -7,24 +7,8 @@ import type {
 } from "./types";
 import { validateParameters } from "./utils";
 
-// Custom hook for script loading
-export function useUnicornStudioScript() {
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [error, setError] = useState<Error | null>(null);
-
-  const handleScriptLoad = useCallback(() => {
-    setIsLoaded(true);
-  }, []);
-
-  const handleScriptError = useCallback(() => {
-    setError(new Error("Failed to load UnicornStudio script"));
-  }, []);
-
-  return { isLoaded, error, handleScriptLoad, handleScriptError };
-}
-
 // Custom hook for scene management
-interface UseUnicornSceneParams {
+export interface UseUnicornSceneParams {
   elementRef: React.RefObject<HTMLDivElement | null>;
   projectId?: string;
   jsonFilePath?: string;
@@ -217,6 +201,8 @@ export function useUnicornScene({
     destroyScene,
     onLoad,
     onError,
+    validationError,
+    initError,
   ]);
 
   useEffect(() => {

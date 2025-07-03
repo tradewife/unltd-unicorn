@@ -1,16 +1,16 @@
 import { defineConfig } from "tsup";
 
 export default defineConfig({
-  entry: ["src/index.tsx"],
+  entry: {
+    // Default React version (Vite-compatible)
+    index: "src/index.tsx",
+    // Next.js version
+    next: "src/next/index.tsx",
+  },
   format: ["cjs", "esm"],
   dts: true,
   splitting: false,
   sourcemap: true,
   clean: true,
-  external: ["react", "react-dom", "next"],
-  esbuildOptions(options) {
-    options.banner = {
-      js: '"use client"',
-    };
-  },
+  external: ["react", "react-dom", "next", "next/script", "next/image"],
 });
