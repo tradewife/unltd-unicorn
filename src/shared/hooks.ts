@@ -122,7 +122,7 @@ export function useUnicornScene({
       if (jsonFilePath) {
         sceneConfig.filePath = jsonFilePath;
       } else if (projectId) {
-        sceneConfig.projectId = projectId.split("?")[0]; // Clean project ID
+        sceneConfig.projectId = projectId;
       } else {
         throw new Error("No project ID or JSON file path provided");
       }
