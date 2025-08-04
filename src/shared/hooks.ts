@@ -67,7 +67,6 @@ export function useUnicornScene({
   }, [validationError, onError]);
 
   const destroyScene = useCallback(() => {
-    console.log("destroyScene");
     if (sceneRef.current?.destroy) {
       sceneRef.current.destroy();
       sceneRef.current = null;
@@ -100,9 +99,6 @@ export function useUnicornScene({
 
     try {
       destroyScene();
-
-      console.log("initializeScene");
-
       // Check if UnicornStudio is available
       if (!window.UnicornStudio?.addScene) {
         throw new Error("UnicornStudio.addScene not found");
