@@ -43,6 +43,7 @@ export function useUnicornScene({
   const [initError, setInitError] = useState<Error | null>(null);
   const hasAttemptedRef = useRef(false);
   const initializationKeyRef = useRef<string>("");
+  const isInitializingRef = useRef(false);
 
   // Validate parameters early and memoize the result to prevent loops
   const validationError = useMemo(() => {
@@ -70,30 +71,34 @@ export function useUnicornScene({
       sceneRef.current.destroy();
       sceneRef.current = null;
     }
+    isInitializingRef.current = false;
   }, []);
 
   const initializeScene = useCallback(async () => {
     if (!elementRef.current || !isScriptLoaded || validationError) return;
 
-    // Create a unique key for this configuration
-    const currentKey = `${projectId || ""}-${jsonFilePath || ""}-${scale}-${dpi}-${fps}-${production ? "prod" : "dev"}`;
-
-    // If we've already attempted with this key and failed, don't retry
-    if (
-      initializationKeyRef.current === currentKey &&
-      hasAttemptedRef.current &&
-      initError
-    ) {
+    // Prevent multiple concurrent initializations
+    if (isInitializingRef.current) {
+      console.log("Already initializing, skipping...");
       return;
     }
 
-    // Update the initialization key
+    // Create a unique key for this configuration
+    const currentKey = `${projectId || ""}-${jsonFilePath || ""}-${scale}-${dpi}-${fps}-${production ? "prod" : "dev"}`;
+
+    // Check if we're already initialized with this exact configuration
+    if (initializationKeyRef.current === currentKey && sceneRef.current) {
+      console.log("Scene already initialized with this configuration, skipping...");
+      return;
+    }
+
+    // Update the initialization key and flag
     initializationKeyRef.current = currentKey;
     hasAttemptedRef.current = true;
+    isInitializingRef.current = true;
 
     try {
       destroyScene();
-
       // Check if UnicornStudio is available
       if (!window.UnicornStudio?.addScene) {
         throw new Error("UnicornStudio.addScene not found");
@@ -155,8 +160,10 @@ export function useUnicornScene({
           sceneRef.current = scene;
           hasAttemptedRef.current = false; // Reset on success
           setInitError(null); // Clear any previous errors
+          isInitializingRef.current = false;
           onLoad?.();
         } else {
+          isInitializingRef.current = false;
           throw new Error("Failed to initialize scene");
         }
       } catch (error) {
@@ -184,6 +191,7 @@ export function useUnicornScene({
 
       const sanitizedError = new Error(sanitizedMessage);
       setInitError(sanitizedError);
+      isInitializingRef.current = false;
       onError?.(sanitizedError);
     }
   }, [
@@ -202,16 +210,18 @@ export function useUnicornScene({
     onLoad,
     onError,
     validationError,
-    initError,
   ]);
 
   useEffect(() => {
     if (isScriptLoaded) {
       void initializeScene();
     }
+  }, [isScriptLoaded, initializeScene]);
 
+  // Cleanup only on unmount
+  useEffect(() => {
     return destroyScene;
-  }, [isScriptLoaded, initializeScene, destroyScene]);
+  }, [destroyScene]);
 
   // Reset state when projectId or jsonFilePath changes
   useEffect(() => {
@@ -219,6 +229,8 @@ export function useUnicornScene({
     if (initializationKeyRef.current !== newKey) {
       hasAttemptedRef.current = false;
       setInitError(null);
+      isInitializingRef.current = false;
+      initializationKeyRef.current = ""; // Reset the key to allow fresh initialization
     }
   }, [projectId, jsonFilePath, scale, dpi, fps, production]);
 
